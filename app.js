@@ -1,5 +1,7 @@
 const express=require('express');
-const jwt=require('./jwt.js');
+const jwt = require("jsonwebtoken");
+// const jwt=require('./jwt.js');
+
 const config = require('./config/config.js');
 const request = require('request')
 const app=express();
@@ -26,22 +28,35 @@ app.use(function(req,res,next){
 }
 })
 app.get('/api/users/get',function(req,res){
-  console.log(jwt.sign({"email":"admin@barong.io"}))
+  var decoded_key = new Buffer(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
+  var payload = Buffer.from(JSON.stringify({ email:"admin@barong.io"})).toString('base64')
+  signed_payload = jwt.sign(
+    payload,
+    decoded_key,
+    { algorithm: global.gConfig.jwt.algorithm })
+    console.log("SIGNED PAYLOAD:", signed_payload)
+  protected = signed_payload.split('.')[0]
+  signature = signed_payload.split('.')[2]
+  request_params = {
+    email: "admin@barong.io",
+    payload: payload,
+    signatures: [{
+    protected: protected,
+    header: { kid: "applogic" },
+    signature: signature
+    }]
+  }
+    console.log("PAYLOAD:", payload)
+    console.log("REQUST_PARAMS:", request_params)
   request({
     method: "POST",
     uri: global.gConfig.barong_url,
     json: true,
-    multipart:
-    [ { 'content-type': 'application/json'
-      ,  body: JSON.stringify({foo: jwt.sign({"email":"admin@barong.io"}),})
-      }
-    , { body: 'I am an attachment' }
-    ] }, (err, res, body) => {
-  if (err) { return console.log(err); }
-  console.log(body.url);
-  console.log(body.explanation);
+    body: request_params }, (err, res, body) => {
+      console.log(body)
+      if (err) { return console.log(err);
+    }
 });
-
   res.json(global.gConfig);
 })
 

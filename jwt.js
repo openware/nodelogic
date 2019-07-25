@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require('./config/config.js');
 const fs = require('fs')
+const decoded_key = new Buffer(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
 
 module.exports = {
   /**
@@ -16,7 +17,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       jwt.sign(
         { payload: payload, exp: Date.now() + global.gConfig.jwt.expire_date },
-        global.gConfig.jwt.private_key.trim(),
+        decoded_key,
         { algorithm: global.gConfig.jwt.algorithm },
         function(errorInSign, token) {
           if (errorInSign) {
@@ -50,7 +51,7 @@ module.exports = {
    */
   verify(token, callback) {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, global.gConfig.jwt.private_key.trim(), function(
+      jwt.verify(token, decoded_key, function(
         errorInVerfication,
         decodedData
       ) {
