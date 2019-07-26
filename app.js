@@ -1,10 +1,19 @@
 const express=require('express');
 const jwt = require("jsonwebtoken");
+const fs = require('fs')
+
 // const jwt=require('./jwt.js');
 
 const config = require('./config/config.js');
 const request = require('request')
 const app=express();
+var applogic_private_key = null;
+
+try {
+  applogic_private_key = fs.readFileSync(String(global.gConfig.jwt.private_key_path), 'utf8')
+} catch (err) {
+  console.error(err)
+}
 
 app.use(require('body-parser').json());
 app.use(function(req,res,next){
@@ -28,7 +37,7 @@ app.use(function(req,res,next){
 }
 })
 app.get('/api/users/get',function(req,res){
-  var decoded_key = new Buffer(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
+  var decoded_key = new Buffer(applogic_private_key.trim(), 'base64').toString('utf-8')
   var payload = Buffer.from(JSON.stringify({ email:"admin@barong.io"})).toString('base64')
   signed_payload = jwt.sign(
     payload,
