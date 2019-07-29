@@ -1,8 +1,9 @@
+const util = require("util");
 const express = require('express');
 const jwt = require('./jwt.js');
 const request = require('request')
 const app = express();
-const config = require('./config/config.js');
+const config = require('../config/config.js');
 
 app.use(require('body-parser').json());
 
@@ -11,6 +12,7 @@ app.listen(global.gConfig.node_port || process.env.PORT, () => {
 })
 
 app.post('/api/users/get', function(req, res) {
+    console.log(`${req.method} ${req.originalUrl} ${util.inspect(req.body)}`)
     payload = {
         email: req.body.email
     }
@@ -21,12 +23,10 @@ app.post('/api/users/get', function(req, res) {
         uri: global.gConfig.barong_url,
         json: true,
         body: request_params
-    }, (err, res, body) => {
-        console.log(body)
+    }, (err, result, body) => {
+        res.json(body)
         if (err) {
             return console.error(err);
         }
     });
-    console.log("REQUEST PARAMS:", request_params)
-    res.json(global.gConfig);
 })

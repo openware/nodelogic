@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require('./config/config.js');
+const config = require('../config/config.js');
 const fs = require('fs')
 const decoded_key = Buffer.from(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
 
