@@ -2,7 +2,7 @@
   "development": {
       "config_id": "development",
       "app_name": "Nodelogic",
-      "app_desc": "my app desc",
+      "app_desc": "Node JS Applogic for Rubykube Stack",
       "node_port": 3001,
       "json_indentation": 4,
       "barong_url": "http://localhost:3000/api/v2/management/users/get",
@@ -12,14 +12,9 @@
           "private_key": "private_key_in_base64"
       }
   },
-  "testing": {
+  "test": {
       "config_id": "testing",
       "database": "my-app-db-test"
-  },
-  "staging": {
-      "config_id": "staging",
-      "node_port": 8080,
-      "database": "my-app-db-stag"
   },
   "production": {
       "config_id": "production",
