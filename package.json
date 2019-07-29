@@ -4,7 +4,12 @@
   "description": "Node JS version of Applogic for Rubykube stack",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/app.js"
+  },
+  "engineStrict" : true,
+  "engines": {
+    "node": ">=11.4.0"
   },
   "author": "Artem Linetskyi",
   "license": "ISC",
