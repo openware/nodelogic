@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require('./config/config.js');
 const fs = require('fs')
-const decoded_key = new Buffer(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
+const decoded_key = Buffer.from(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
 
 module.exports = {
   /**
@@ -10,34 +10,15 @@ module.exports = {
    * @param {Object} payload  the payload send to the user
    * @param {Function} callback function envoked with two parameters
    *                        1. error the error in operation
-   *                        2. token the signed payload
-   * @returns {Promise}
+   * n   2. token the signed payload
    */
-  sign(payload, callback) {
-    return new Promise((resolve, reject) => {
-      jwt.sign(
-        { payload: payload, exp: Date.now() + global.gConfig.jwt.expire_date },
-        decoded_key,
-        { algorithm: global.gConfig.jwt.algorithm },
-        function(errorInSign, token) {
-          if (errorInSign) {
-            if (callback) {
-              callback(errorInSign.message);
-              resolve(null);
-            } else {
-              reject(errorInSign.message);
-            }
-          } else {
-            if (callback) {
-              callback(null, token);
-              resolve(null);
-            } else {
-              resolve(token);
-            }
-          }
-        }
-      );
-    });
+  sign (payload, callback) {
+    token = jwt.sign(
+      { data: payload, exp: Date.now() + global.gConfig.jwt.expire_date },
+      decoded_key,
+      { algorithm: global.gConfig.jwt.algorithm }
+    )
+    return token
   },
 
   /**
@@ -47,30 +28,28 @@ module.exports = {
    * @param {Function} callback function envoked on completion of the task with
    *                        1. error the error in verification
    *                        2. if verification is successfull the decoded data is passed.
-   * @returns {Promise}
    */
   verify(token, callback) {
-    return new Promise((resolve, reject) => {
-      jwt.verify(token, decoded_key, function(
-        errorInVerfication,
-        decodedData
-      ) {
-        if (errorInVerfication) {
-          if (callback) {
-            callback(errorInVerfication.message);
-            resolve(null);
-          } else {
-            reject(errorInVerfication.message);
-          }
-        } else {
-          if (callback) {
-            callback(null, decodedData);
-            resolve(null);
-          } else {
-            resolve(decodedData);
-          }
-        }
-      });
-    });
+      result = jwt.verify(token, decoded_key)
+      return result
+  },
+
+   /**
+   * formatParams - format request parameters.
+   *
+   * @param {Oblect} payload    payload to format
+   */
+
+  formatParams(payload) {
+    request_params = {
+      payload: payload.split('.')[1],
+      signatures: [{
+      protected: payload.split('.')[0],
+      header: { kid: 'applogic' },
+      signature: payload.split('.')[2]
+      }]
+    }
+    return request_params
   }
+
 };

@@ -9,7 +9,7 @@
       "jwt": {
           "expire_date": 60,
           "algorithm": "RS256",
-          "private_key_path": "keys/applogic.key"
+          "private_key": "private_key_in_base64"
       }
   },
   "testing": {
