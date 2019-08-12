@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require('../config/config.js');
 const fs = require('fs')
-const decoded_key = Buffer.from(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
+const barong_jwt_public_key = Buffer.from(global.gConfig.barong_jwt_public_key.trim(), 'base64').toString('utf-8')
+const private_key = Buffer.from(global.gConfig.jwt.private_key.trim(), 'base64').toString('utf-8')
 
 module.exports = {
     /**
@@ -17,7 +18,7 @@ module.exports = {
                 data: payload,
                 exp: Date.now() + global.gConfig.jwt.expire_date
             },
-            decoded_key, {
+            private_key, {
                 algorithm: global.gConfig.jwt.algorithm
             }
         )
@@ -33,7 +34,7 @@ module.exports = {
      *                        2. if verification is successfull the decoded data is passed.
      */
     verify(token, callback) {
-        result = jwt.verify(token, decoded_key)
+        result = jwt.verify(token, barong_jwt_public_key)
         return result
     },
 
