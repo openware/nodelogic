@@ -28,11 +28,14 @@ steps:
       - git describe --tags $(git rev-list --tags --max-count=1) > .tags
 
   - name: "Build container"
-    image: plugins/gcr
+    image: plugins/docker
     settings:
-      repo: gcr.io/openware-production/nodelogic
-      json_key:
-        from_secret: openware_gcp_creds_base64
+      username:
+        from_secret: quay_username
+      password:
+        from_secret: quay_password
+      repo: quay.io/openware/nodelogic
+      registry: quay.io
 
 trigger:
   branch:
