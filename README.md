@@ -20,9 +20,9 @@ keychain:
 * Add required scopes for your application.
 ```yaml
 scopes:
-	read_user:
-		permitted_signers: ['nodelogic']
-		mandatory_signers: ['nodelogic']
+  read_user:
+    permitted_signers: ['nodelogic']
+    mandatory_signers: ['nodelogic']
 ```
 Now you can bring up the stack and test nodelogic application
 
