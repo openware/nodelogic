@@ -46,7 +46,7 @@ Before we create the app we need to understand how the authorization and sharing
 
 Authorization flow diagram is presented below:
 
-![Authorization Flow Diagram](docs/images/auth-flow.jpg)On a successful use login, a cookie will be set. After that thi
+![Authorization Flow Diagram](docs/images/auth-flow.png)On a successful use login, a cookie will be set. After that thi
 
 After JWT is decoded, the app has access to this object.
 
