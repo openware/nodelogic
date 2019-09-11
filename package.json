@@ -19,7 +19,7 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.2",
     "mongoose": "^5.6.6",
-    "node-auth-barong": "^1.0.0",
+    "@openware/node-auth-barong": "^1.1.0",
     "request": "^2.81.0"
   }
 }
