@@ -1,4 +1,4 @@
-# Node JS Applogic for Rubykube stack
+# Node JS Applogic for the Openware stack
 
 ### Start the app
 To start up the application simply run
@@ -410,6 +410,4 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
     admin@barong.io
     ```
 
-
-
-#### CONGRATULATIONS! We've successfully developed our custom component for rubykube stack. Now sky is the only limit.
+#### CONGRATULATIONS! You've successfully developed and deployed your custom component for the Openware stack. Now sky is your only limit.
