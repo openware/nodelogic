@@ -1,6 +1,6 @@
 {
   "name": "nodelogic",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Node JS version of Applogic for Rubykube stack",
   "main": "app.js",
   "scripts": {
@@ -14,12 +14,12 @@
   "author": "Artem Linetskyi",
   "license": "ISC",
   "dependencies": {
+    "@openware/node-auth-barong": "^1.1.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.2",
     "mongoose": "^5.13.2",
-    "@openware/node-auth-barong": "^1.1.0",
     "request": "^2.88.2"
   }
 }
