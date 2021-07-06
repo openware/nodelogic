@@ -1,6 +1,6 @@
 {
   "name": "nodelogic",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Node JS version of Applogic for Rubykube stack",
   "main": "app.js",
   "scripts": {
