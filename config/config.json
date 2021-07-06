@@ -6,6 +6,7 @@
       "node_port": 8081,
       "json_indentation": 4,
       "barong_url": "http://localhost:3000/api/v2/management/users/get",
+      "peatio_url": "http://localhost:8000",
       "jwt": {
           "expire_date": 60,
           "algorithm": "RS256",
