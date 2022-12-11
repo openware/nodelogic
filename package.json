@@ -17,7 +17,7 @@
     "@openware/node-auth-barong": "^1.1.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.2.2",
     "mongoose": "^5.13.2",
     "request": "^2.88.2"
